@@ -23,13 +23,26 @@ public class Application {
                 computer.add(randomNumber);
             }
         }
-
+        int number;
         while (true) {
             System.out.print("숫자를 입력해 주세요 : ");
-            int number = Integer.parseInt(br.readLine()); // 숫자 입력받기
-            if (number > 1000) {
-                break;
+            try {
+                number = Integer.parseInt(br.readLine());
+            } catch (NumberFormatException e) {
+                continue;
             }
+
+            if (number < 100 || number > 999) { // 입력 값이 정해진 값을 벗어 낫을 경우 예외 try-catch문 + if 를 통해서 예외처리를 해주었다.
+                throw new IllegalArgumentException();
+            }
+
+
+
+
+//            int number = Integer.parseInt(br.readLine()); // 숫자 입력받기
+//            if (number > 1000) {
+//                break;
+//            }
 
             int strike = 0;
             int ball = 0;
@@ -40,8 +53,8 @@ public class Application {
             int third_number = number % 10; // 1의 자릿수
 
             int[] number_arr = {first_number, second_number, third_number}; // 입력 각 자릿수의 값을 리스트화
-            System.out.println("computer = "+computer);
-            System.out.println("number_arr = " + Arrays.toString(number_arr));
+//            System.out.println("computer = "+computer);
+//            System.out.println("number_arr = " + Arrays.toString(number_arr));
 
             for (int i = 0; i < number_arr.length; i++) {  // 각 자리수 비교하고 strike ball 추가하는 로직
                 for (int j = 0; j < number_arr.length; j++) {
@@ -71,9 +84,11 @@ public class Application {
                         }
                     }
                 }else if (ans == 2) {
+                    System.out.println("게임 종료");
                     break;
                 }
             } else if (strike == 0 && ball == 0) {
+                System.out.println("낫싱");
                 continue;
             } else if (strike > 0 && ball == 0) {
                 System.out.println(strike+"스트라이크");
